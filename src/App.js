@@ -7,72 +7,73 @@ import { Carousel } from 'react-responsive-carousel';
 class App extends Component {
   constructor(props) {
     super(props)
-
+  
     this.state = {
-      cards: [
-        {
-          Title: 'Mercedes',
-          Description: 'great',
-          NumOfCarRentalsUntilToday: 10,
-          Image: 'images/th.jpg'
-        },
-        {
-          Title: 'BMW',
-          Description: 'good',
-          NumOfCarRentalsUntilToday: 6,
-          Image: 'images/th1.jpg'
-        },
-        {
-          Title: 'Honda',
-          Description: 'good',
-          NumOfCarRentalsUntilToday: 7,
-          Image: 'images/th2.jpg'
-        },
-        {
-          Title: 'Kia',
-          Description: 'not bad',
-          NumOfCarRentalsUntilToday: 5,
-          Image: 'images/th3.jpg'
-        },
-        {
-          Title: 'Cadilac',
-          Description: 'elegant',
-          NumOfCarRentalsUntilToday: 2,
-          Image: 'images/th4.jpg'
-        },
-        {
-          Title: 'Ferrari',
-          Description: 'sport car',
-          NumOfCarRentalsUntilToday: 1,
-          Image: 'images/th5.jpg'
-        },
-        {
-          Title: 'Mazerati',
-          Description: 'elegant',
-          NumOfCarRentalsUntilToday: 0,
-          Image: 'images/th6.jpg'
-        },
-        {
-          Title: 'Nissan',
-          Description: 'sport car',
-          NumOfCarRentalsUntilToday: 3,
-          Image: 'images/th7.jpg'
-        }
-
-      ],
-      showNum: true
+      showNum : true
     }
-  }
+    this.toggleHandler = this.toggleHandler.bind(this)
+  }  
+   
 
-  toggleHandler = () => {
-    const doesSow = this.state.showNum
-    this.setState({
-      showNum: !doesSow
+  toggleHandler() {
+    this.setState((prevState) => {
+      return {showNum: !prevState.showNum}
     })
   }
 
 
   render() {
+    const cards= [
+      {
+        Title: 'Mercedes',
+        Description: 'great',
+        NumOfCarRentalsUntilToday: 10,
+        Image: 'images/th.jpg'
+      },
+      {
+        Title: 'BMW',
+        Description: 'good',
+        NumOfCarRentalsUntilToday: 6,
+        Image: 'images/th1.jpg'
+      },
+      {
+        Title: 'Honda',
+        Description: 'good',
+        NumOfCarRentalsUntilToday: 7,
+        Image: 'images/th2.jpg'
+      },
+      {
+        Title: 'Kia',
+        Description: 'not bad',
+        NumOfCarRentalsUntilToday: 5,
+        Image: 'images/th3.jpg'
+      },
+      {
+        Title: 'Cadilac',
+        Description: 'elegant',
+        NumOfCarRentalsUntilToday: 2,
+        Image: 'images/th4.jpg'
+      },
+      {
+        Title: 'Ferrari',
+        Description: 'sport car',
+        NumOfCarRentalsUntilToday: 1,
+        Image: 'images/th5.jpg'
+      },
+      {
+        Title: 'Mazerati',
+        Description: 'elegant',
+        NumOfCarRentalsUntilToday: 0,
+        Image: 'images/th6.jpg'
+      },
+      {
+        Title: 'Nissan',
+        Description: 'sport car',
+        NumOfCarRentalsUntilToday: 3,
+        Image: 'images/th7.jpg'
+      }
+
+    ]
 
     const btnStyle = {
       backgroundColor: 'white',
@@ -86,11 +87,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <button style={btnStyle} onClick={this.toggleHandler}>Toggle Renting Num</button>
+        <h1>Cars Rental System</h1>
         <div className="cars-container">
           <Carousel>
             {
-              this.state.cards.map((card, index) => {
+              cards.map((card, index) => {
                 return (
                   <CardView key={index} car={card} showCarRentalNumbers={this.state.showNum} />
                 )
@@ -98,6 +99,7 @@ class App extends Component {
             }
           </Carousel>
         </div>
+        <button style={btnStyle} onClick={this.toggleHandler}>Renting Number</button>
       </div>
     )
   }

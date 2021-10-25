@@ -1,6 +1,7 @@
 .CardView {
+    height: 100%;
     width: 60%;
-    margin:16px auto;
+    margin: auto;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px black;
     padding: 16px;
@@ -8,6 +9,6 @@
 }
 
 .CardView img {
-    max-width: 500px;
+    max-width: 300px;
 }
 
