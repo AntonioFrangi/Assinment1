@@ -1,0 +1,27 @@
+.navigation {
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+    box-sizing: border-box;
+    display: block;
+}
+
+.navigation a:hover, .navigation a:active, .navigation a.active {
+    background-color: cyan;
+    border-bottom: 4px solid whitesmoke;
+    color: white;
+}
+
+.navigation li {
+    list-style: none;
+}

@@ -1,10 +1,16 @@
 import React from "react";
 import './CardView.css';
 
-const card = ({ car, showCarRentalNumbers }) => {
+
+
+const Card = ({ car, showCarRentalNumbers }) => {
     return (
         <div className="CardView">
-            <img alt="car" src={car.Image} />
+            <button link="/CarDetails">
+                
+                    <img alt="car" src={car.Image} />
+                
+            </button>
             <p>Title: {car.Title} </p>
             <p>Description: {car.Description} </p>
             {showCarRentalNumbers ? <p>Rented Cars: {car.NumOfCarRentalsUntilToday} </p> : null}
@@ -12,4 +18,4 @@ const card = ({ car, showCarRentalNumbers }) => {
     )
 };
 
-export default card
+export default Card

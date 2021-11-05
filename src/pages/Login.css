@@ -1,0 +1,49 @@
+.login-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-window {
+    padding: 100px 50px 60px 50px;
+    background-color: lightblue;
+    border-radius: 10px;
+    min-width: 400px;
+}
+
+.login-window .form-group {
+    margin-bottom: 10px;
+}
+
+.login-window label {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.login-window input {
+    width: 93%;
+    height: 25px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    padding: 10px;
+    margin-bottom: 3px;
+}
+
+.login-window button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.login-window .actions {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.login-window .errors-field {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
