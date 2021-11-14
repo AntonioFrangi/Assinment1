@@ -1,29 +1,34 @@
 import React from 'react'
-import './SignUp.css';
+import './Login.css';
 import { Formik, Field, Form } from 'formik';
-import axios from '../axios';
 import { useHistory } from 'react-router-dom';
+import firebaseInstance from '../../axios'
+require('dotenv').config();
 
-const key = "AIzaSyBTpMytweUHdtaNay5JJAgElRscG1bjCak";
-
-
-const SignUp = () => {
-
+const Login = () => {
     const history = useHistory();
+    const key = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    const storeData = (email, password) => {
+    const loginData = (email, password) => {
         const client = {
             email: email,
             password: password,
             returnSecureToken: true
         };
-        axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`, client)
+        firebaseInstance.post(`/accounts:signInWithPassword?key=${key}`, client)
             .then(response => {
                 localStorage.setItem('app_token', response.data.idToken);
-                alert('User created successfuly! now you will continue');
-                history.push('/');
+                alert('Login successfuly! now you will continue');
+                history.push('/home');
             })
-            .catch(error => console.log(error))
+            .catch(() => {
+                alert('Invalid credentials');
+            })
+            
+    }
+
+    const goToSignUpPage = () => {
+        history.push('/SignUp');
     }
 
     return (
@@ -32,30 +37,19 @@ const SignUp = () => {
                 <Formik
                     initialValues={{
                         email: '',
-                        password: '',
-                        confirmPassword: ''
+                        password: ''
                     }}
                     onSubmit={async (values) => {
-                        storeData(values.email, values.password);
+                        loginData(values.email, values.password);
                     }}
                     validate={(values) => {
                         const errors = {};
                         if (!values.email || values.email.trim() == "") {
                             errors.email = 'Email is required';
                         }
-
                         if (!values.password || values.password.trim() == "") {
                             errors.password = 'Password is required';
                         }
-
-                        if (!values.confirmPassword || values.confirmPassword.trim() == "") {
-                            errors.confirmPassword = 'Confirm Password is required';
-                        }
-
-                        if (values.confirmPassword && values.confirmPassword != values.password) {
-                            errors.confirmPassword = 'Password and Confirm Password must match';
-                        }
-
                         return errors;
                     }}
                 >
@@ -90,20 +84,9 @@ const SignUp = () => {
                                     null}
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="confirmPassword">Confirm Password</label>
-                                <Field id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" type="password" />
-
-                                {props.errors && props.errors.confirmPassword ?
-                                    <div className="errors-field">
-                                        <span>{props.errors.confirmPassword}</span>
-                                    </div>
-                                    :
-                                    null}
-                            </div>
-
                             <div className="actions">
-                                <button type="submit">SAVE</button>
+                                <button type="submit">LOGIN</button>
+                                <button onClick={goToSignUpPage}>Sign Up</button>
                             </div>
                         </Form>
                     )}
@@ -113,4 +96,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp;
+export default Login;

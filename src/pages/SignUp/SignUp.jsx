@@ -1,53 +1,61 @@
 import React from 'react'
-import './Login.css';
-import { Formik, Field, Form } from 'formik';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import './SignUp.css'
+import { Formik, Field, Form } from 'formik'
+import { useHistory } from 'react-router-dom'
+import firebaseInstance from '../../axios'
+require('dotenv').config();
 
-const validCredentials = {
-    email: 'user@test.com',
-    password: '123'
-}
-
-const key = "AIzaSyBTpMytweUHdtaNay5JJAgElRscG1bjCak";
-
-const Login = () => {
+const SignUp = () => {
     const history = useHistory();
+    const key = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    const loginData = (email, password) => {
+    const storeData = (email, password) => {
         const client = {
             email: email,
             password: password,
             returnSecureToken: true
         };
-        axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`, client)
+        firebaseInstance.post(`/accounts:signUp?key=${key}`, client)
             .then(response => {
                 localStorage.setItem('app_token', response.data.idToken);
-                alert('Login successfuly! now you will continue');
+                alert('User created successfuly! now you will continue');
                 history.push('/');
             })
-            .catch(error => console.log(error))
+            .catch(() => {
+                alert('Failed to sign up');
+            })
     }
+
     return (
         <div className="login-container">
             <div className="login-window">
                 <Formik
                     initialValues={{
                         email: '',
-                        password: ''
+                        password: '',
+                        confirmPassword: ''
                     }}
                     onSubmit={async (values) => {
-                        loginData(values.email, values.password);
+                        storeData(values.email, values.password);
                     }}
                     validate={(values) => {
                         const errors = {};
                         if (!values.email || values.email.trim() == "") {
                             errors.email = 'Email is required';
                         }
+
                         if (!values.password || values.password.trim() == "") {
                             errors.password = 'Password is required';
                         }
+
+                        if (!values.confirmPassword || values.confirmPassword.trim() == "") {
+                            errors.confirmPassword = 'Confirm Password is required';
+                        }
+
+                        if (values.confirmPassword && values.confirmPassword != values.password) {
+                            errors.confirmPassword = 'Password and Confirm Password must match';
+                        }
+
                         return errors;
                     }}
                 >
@@ -82,10 +90,20 @@ const Login = () => {
                                     null}
                             </div>
 
+                            <div className="form-group">
+                                <label htmlFor="confirmPassword">Confirm Password</label>
+                                <Field id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" type="password" />
+
+                                {props.errors && props.errors.confirmPassword ?
+                                    <div className="errors-field">
+                                        <span>{props.errors.confirmPassword}</span>
+                                    </div>
+                                    :
+                                    null}
+                            </div>
+
                             <div className="actions">
-                                <button type="submit">LOGIN</button>
-                               <button> <Link to="/SignUp" type="submit" >SIGN UP</Link></button>
-                            
+                                <button type="submit">SAVE</button>
                             </div>
                         </Form>
                     )}
@@ -95,4 +113,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default SignUp;

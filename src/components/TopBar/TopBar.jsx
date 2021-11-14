@@ -1,14 +1,14 @@
 import React from "react";
-import Logo from "./Logo";
+import Logo from "../Logo/Logo";
 import './TopBar.css';
 import Navigations from '../Navigations/Navigations'
 
 const topBar = () => (
     <header className="TopBar">
         <div>Cars</div>
-        <Logo/>
+        <Logo />
         <nav>
-            <Navigations/>
+            <Navigations />
         </nav>
     </header>
 );

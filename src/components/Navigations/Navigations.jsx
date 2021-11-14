@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './Navigations.css'
 import Navigation from './Navigation/Navigation'
-
 const Navigations = () => {
 
     const [token, setToken] = useState(localStorage.getItem('app_token'));
@@ -20,7 +19,7 @@ const Navigations = () => {
                     </>
                     :
                     <>
-                        <span>username</span>
+                        <span>{ }</span>
                         <button onClick={logout}>Logout</button>
                     </>
             }

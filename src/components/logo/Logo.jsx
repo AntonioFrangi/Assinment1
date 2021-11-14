@@ -1,5 +1,5 @@
 import React from "react";
-import carLogo from '../components/logo/th8.jpg';
+import carLogo from './th8.jpg';
 import './Logo.css'
 
 const Logo = (props) => (

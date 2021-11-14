@@ -1,34 +1,23 @@
-import { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Home from './pages/Home';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import CarDetails from './pages/CarDetails';
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import SignUp from './pages/SignUp/SignUp';
+import CarDetails from './pages/CarDetails/CarDetails'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
-class App extends Component {
-
-  render() {
-    return (
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/SignUp">
-            <SignUp />
-          </Route>
-          <Route path="/CarDetails">
-            <CarDetails/>
-          </Route>
-        </Switch>
-      </Router>
-    )
-  }
-
+const App = () => {
+  return (
+    <Router>
+      <Switch>
+        <ProtectedRoute exact path="/" />
+        <ProtectedRoute exact path="/home" component={Home} />
+        <ProtectedRoute exact path="/login" component={Login} />
+        <ProtectedRoute exact path="/SignUp" component={SignUp} />
+        <ProtectedRoute exact path="/CarDetails" component={CarDetails} />
+      </Switch>
+    </Router>
+  )
 }
 
 export default App
